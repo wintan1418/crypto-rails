@@ -1,0 +1,27 @@
+<h1>Crypto Exchange Rate</h1>
+
+<%= form_with url: crypto_check_path, method: :get, local: true do |form| %>
+  <div>
+    <%= form.label :source_currency, "Source Currency" %>
+    <%= form.select :source_currency, options_for_select(@currencies.map { |c| [c[:name], c[:iso_code]] }) %>
+  </div>
+
+  <div>
+    <%= form.label :target_currency, "Target Currency" %>
+    <%= form.select :target_currency, options_for_select(@currencies.map { |c| [c[:name], c[:iso_code]] }) %>
+  </div>
+
+  <div>
+    <%= form.label :amount, "Amount" %>
+    <%= form.number_field :amount %>
+  </div>
+
+  <div>
+    <%= form.submit "Check Rate" %>
+  </div>
+<% end %>
+
+<% if @rate %>
+  <h2>Exchange Rate</h2>
+  <p><%= @amount %> <%= @source_currency %> is equal to <%= @rate %> <%= @target_currency %></p>
+<% end %>
